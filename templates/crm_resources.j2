@@ -9,13 +9,13 @@ primitive HA_IP_INTERNAL IPaddr2 \
         params ip={{ floating_ip_int }} cidr_netmask=32 nic="eth0:0" \
         op monitor interval=30s
 primitive lsyncd systemd:lsyncd \
-        op start interval=0 timeout=30 \
-        op stop interval=0 timeout=30
+        op start interval=0 timeout=100 \
+        op stop interval=0 timeout=100
 group HA_ACTIVE HA_IP_EXTERNAL HA_IP_INTERNAL lsyncd \
         meta target-role=Started
 property cib-bootstrap-options: \
         cluster-infrastructure=corosync \
-        cluster-name={{ type }}cluster \
+        cluster-name={{ clustername }} \
         no-quorum-policy=ignore \
         stonith-enabled=false \
         default-resource-stickiness=100
