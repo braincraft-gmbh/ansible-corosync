@@ -1,0 +1,25 @@
+---
+- name: Install corosync
+  apt:
+    name: corosync
+    state: present
+    update_cache: yes
+
+- name: Install crmsh
+  apt:
+    name: crmsh
+    state: present
+
+- name: Deploy corosync configuration from template
+  template:
+    src: corosync.conf.j2
+    dest: /etc/corosync/corosync.conf
+  notify: reload corosync configuration
+
+- name: Deploy crm configuration from template
+  template:
+    src: crm_resources.j2
+    dest: /var/local/crm_resources.conf
+
+- name: Load crm resources (replace)
+  command: "crm configure load replace /var/local/crm_resources.conf"

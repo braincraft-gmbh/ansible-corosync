@@ -1,0 +1,34 @@
+totem {
+  version: 2
+  cluster_name: {{ clustername }}
+  transport: udpu
+  interface {
+    ringnumber: 0
+    bindnetaddr: {{ ip_int }}
+    broadcast: yes
+    mcastport: 5409
+  }
+}
+
+quorum {
+  provider: corosync_votequorum
+  two_node: 1
+}
+
+nodelist {
+  node {
+    ring0_addr: {{ ha_host_active_ip_int }}
+    nodeid: 1
+  }
+  node {
+    ring0_addr: {{ ha_host_standby_ip_int }}
+    nodeid: 2
+  }
+}
+
+logging {
+  to_logfile: yes
+  logfile: /var/log/corosync/corosync.log
+  to_syslog: yes
+  timestamp: on
+}
