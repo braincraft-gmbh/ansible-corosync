@@ -10,6 +10,9 @@
     name: crmsh
     state: present
 
+- name: Create corosync authkey
+  command: "/usr/sbin/corosync-keygen"
+
 - name: Deploy corosync configuration from template
   template:
     src: corosync.conf.j2
