@@ -24,5 +24,8 @@
     src: crm_resources.j2
     dest: /var/local/crm_resources.conf
 
+- name: Make crm check-mode relaxed
+  command: "crm options check-mode relaxed"
+
 - name: Load crm resources (replace)
   command: "crm configure load replace /var/local/crm_resources.conf"

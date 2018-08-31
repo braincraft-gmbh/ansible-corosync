@@ -1,12 +1,15 @@
+compatibility: whitetank
+
 totem {
   version: 2
   cluster_name: {{ clustername }}
   transport: udpu
+  secauth: off
   interface {
     ringnumber: 0
     bindnetaddr: {{ ip_int }}
     broadcast: yes
-    mcastport: 5409
+    mcastport: 5405
   }
 }
 
